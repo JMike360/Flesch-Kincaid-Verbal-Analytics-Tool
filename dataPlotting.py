@@ -8,6 +8,10 @@ def getDonaldTrumpTweetsFromAPI():
 def getDonaldTrumpFleschScoresFromFile():
 	fleschTest = Flesch()
 	return fleschTest.test('drumpf.json')
+def getDonaldTrumpScoresFromSpeechText():
+	fleschTest = Flesch()
+	fleschTest.test_speech("dump.txt")
+
 class dateTime():
 	time = 0
 	month = 0
@@ -57,13 +61,20 @@ class dateTime():
 xplot = []
 yplot = []
 results = getDonaldTrumpFleschScoresFromFile()
+totalScore = 0
+count = 0
 for result in results:	
 	d = dateTime()
 	parsed = d.parseDateTimeFromTwitterString(result[1]['created_at'])
 	time = parsed.getPlottingValue()
-
+	#print result[0]
 	xplot.append(time)
-	yplot.append(result[0])
-print xplot
+	yplot.append(result[0][0])
+	totalScore += result[0][0]
+	count += 1
 plt.plot(xplot, yplot, 'r+')
 plt.show()
+
+avgScore = float(totalScore) / float(count)
+
+getDonaldTrumpScoresFromSpeechText()

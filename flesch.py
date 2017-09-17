@@ -59,4 +59,24 @@ class Flesch:
         #print count
             
         # breakeze
+    def test_speech(self, fileName):
+        with open(fileName, "r") as f:
+            single_data_point = 0
+
+            for line in f.readlines():
+                sentence_count = len(line.split('.?!'))
+                words = line.split(' ')
+                word_count = len(words)
+                syllables_count = 0
+                for word in words:
+                    syllables_count += nsyl(word)
+
+                line_grade = flesch_test(word_count, syllables_count, sentence_count)
+                single_data_point += line_grade
+                print("grade: %d\tline: %s" % (line_grade, line))
+
+            single_data_point /= len(f.readlines())
+            print("single data point: %d" % single_data_point)
+
+
 
