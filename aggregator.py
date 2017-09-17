@@ -3,34 +3,28 @@ import string
 
 class Aggregator(ScraperDelegate):
     scraper = None
-
+    scrapedTweets = []
     def __init__(self):
         self.scraper = Scraper(self)
 
-    def aggregate(self):
-        return self.scraper.scrape()
+    def aggregate(self, twitterHandle):
+        return self.scraper.scrape(twitterHandle)
 
     def scraped(self, tweets):
-        print "scraped tweets:"
-
-        i = 1
-
-        for t in tweets:
-            print ("%d. " % i) + t + "\n"
-            i += 1
+        self.scrapedTweets = tweets
 
 def removePunc(inputString):
-    for char in inputString:
+    for char in inputString: 
         if char in string.punctuation:
             inputString.remove(char)
     return inputString
 
 class dataSet():
-    def __init__(self):
+    def __init__(self, twitterHandle):
         self.tweetSet = dict()
         self.speechSet = dict()
         ag = Aggregator()
-        self.tweets = ag.aggregate()
+        self.tweets = ag.aggregate(twitterHandle)
         self.speeches = []
     def populate(self):
         for tweet in self.tweets:
@@ -59,5 +53,3 @@ class dataSet():
                     self.speechSet[word] = 1
         for datum in self.speechSet:
             print datum, self.speechSet[datum]
-d = dataSet()
-d.populate()

@@ -16,8 +16,8 @@ class Scraper:
         if isinstance(delegate, ScraperDelegate):
             self.delegate = delegate
 
-    def scrape(self):
-        statuses = self.api.GetUserTimeline(screen_name='@realDonaldTrump')
+    def scrape(self, twitterHandle):
+        statuses = self.api.GetUserTimeline(screen_name=twitterHandle) #'@realDonaldTrump'
 
         for s in statuses:
             print s

@@ -47,15 +47,16 @@ class Flesch:
                 wordSyllables = nsyl(word)
                 tweetSyllables += wordSyllables
 
-            results.append( [ self.flesch_test(len(text.split(' ')), tweetSyllables, 1), text ] )
-
-        results = sorted(results, key=itemgetter(0))
-        count = 0
-        for result in results:
-            print result
-            count += 1
-
-        print count
+            results.append( ([ self.flesch_test(len(text.split(' ')), tweetSyllables, 1)], tweet) )
+            #results.append(tweet)
+        #results = sorted(results, key=itemgetter(0))
+        return results
+        #count = 0
+        #for result in results:
+        #    print result
+        #    count += 1
+        #
+        #print count
             
         # breakeze
 
