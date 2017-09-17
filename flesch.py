@@ -62,21 +62,26 @@ class Flesch:
     def test_speech(self, fileName):
         with open(fileName, "r") as f:
             single_data_point = 0
+            lines = f.read().split('.')
+            scores = []
+            for line in lines:
+                # print line
 
-            for line in f.readlines():
-                sentence_count = len(line.split('.?!'))
+                sentence_count = max(1, line.count('.') + line.count('!') + line.count('?'))
                 words = line.split(' ')
                 word_count = len(words)
                 syllables_count = 0
                 for word in words:
                     syllables_count += nsyl(word)
 
-                line_grade = flesch_test(word_count, syllables_count, sentence_count)
+                line_grade = self.flesch_test(word_count, syllables_count, sentence_count)
                 single_data_point += line_grade
-                print("grade: %d\tline: %s" % (line_grade, line))
-
-            single_data_point /= len(f.readlines())
-            print("single data point: %d" % single_data_point)
-
+                #print("%d" % line_grade)
+                scores.append(line_grade)
+            single_data_point /= len(lines)
+            #print("average: %d" % single_data_point)
+        return (scores, single_data_point)
+#f = Flesch()
+#f.test_speech("drumpf.json")
 
 

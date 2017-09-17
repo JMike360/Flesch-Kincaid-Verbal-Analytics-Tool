@@ -10,7 +10,7 @@ def getDonaldTrumpFleschScoresFromFile():
 	return fleschTest.test('drumpf.json')
 def getDonaldTrumpScoresFromSpeechText():
 	fleschTest = Flesch()
-	fleschTest.test_speech("dump.txt")
+	return fleschTest.test_speech("dump.txt")
 
 class dateTime():
 	time = 0
@@ -73,8 +73,11 @@ for result in results:
 	totalScore += result[0][0]
 	count += 1
 plt.plot(xplot, yplot, 'r+')
-plt.show()
 
 avgScore = float(totalScore) / float(count)
 
-getDonaldTrumpScoresFromSpeechText()
+speechStuff = getDonaldTrumpScoresFromSpeechText()
+plt.figure()
+xplot2 = speechStuff[0]
+plt.plot(xplot2, 'b+')
+plt.show()
